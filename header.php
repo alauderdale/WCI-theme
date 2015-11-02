@@ -31,54 +31,28 @@
           <i class='md md-close'></i>
         </button>
         <div class='clearfix'></div>
-        <a class='btn btn-default' href='/contact'>
+        <a class='btn btn-default' href='<?php echo get_permalink( get_page_by_title( 'Contact' ) ) ?>'>
           Get in Touch
         </a>
-        <ul class='nav main-links'>
-          <li class='active'>
-            <a href='/'>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href='/approach'>
-              Approach
-            </a>
-          </li>
-          <li>
-            <a href='/team'>
-              Team
-            </a>
-          </li>
-          <li>
-            <a href='/contact'>
-              Contact
-            </a>
-          </li>
-          <li>
-            <a href='/portfolio'>
-              Portfolio
-            </a>
-          </li>
-        </ul>
+        <?php wp_nav_menu( array( 
+        'theme_location' => 'menu-primary', 
+        'container' => false, 
+        'menu_class' => 'nav main-links',
+        'items_wrap'  => '<ul id="%1$s" class="%2$s">  %3$s</ul>' 
+        )); ?>
         <div class='nav-padding-left'>
           <p>
             <ul class='list-inline menu-social'>
+                            <?php $socialLoop = new WP_Query( array('post_type' => 'social', 'posts_per_page' => 3) ); ?>
+
+      <?php while ( $socialLoop->have_posts() ) : $socialLoop->the_post(); ?>
               <li>
-                <a href='#'>
-                  <i class='fa fa-facebook'></i>
+                <a target="_blank" href='<?php the_field('link_url');?>'>
+                  <i class='fa <?php the_field('icon_class');?>'></i>
                 </a>
               </li>
-              <li>
-                <a href='#'>
-                  <i class='fa fa-linkedin'></i>
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i class='fa fa-twitter'></i>
-                </a>
-              </li>
+                            <?php wp_reset_postdata(); ?>
+      <?php endwhile; // end of the loop. ?>
             </ul>
           </p>
         </div>
@@ -86,7 +60,7 @@
       <div id='wrapper'>
         <nav class='main-nav'>
           <div class='container'>
-            <a class='navbar-brand' href='/'>
+            <a class='navbar-brand' href='<?php bloginfo('url')?>'>
               <img src='<?php bloginfo('template_url'); ?>/images/logo@2x.png' width='210px'>
             </a>
             <div class='pull-right visible-xs'>
@@ -98,28 +72,12 @@
               </button>
             </div>
             <div class='nav-links hidden-xs pull-right'>
-              <ul class='nav main-links'>
-                <li>
-                  <a href='/approach'>
-                    Approach
-                  </a>
-                </li>
-                <li>
-                  <a href='/team'>
-                    Team
-                  </a>
-                </li>
-                <li>
-                  <a href='/contact'>
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href='/portfolio'>
-                    Portfolio
-                  </a>
-                </li>
-              </ul>
+        <?php wp_nav_menu( array( 
+        'theme_location' => 'menu-primary', 
+        'container' => false, 
+        'menu_class' => 'nav main-links',
+        'items_wrap'  => '<ul id="%1$s" class="%2$s">  %3$s</ul>' 
+        )); ?>
             </div>
           </div>
         </nav>
